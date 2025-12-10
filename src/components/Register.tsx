@@ -28,7 +28,8 @@ import {
     CheckCircle
 } from '@mui/icons-material';
 
-import Logo from "../assets/kingLogo.jpg"
+import Logo from "../assets/logo.png"
+import Snowfall from './Snowfall';
 
 // Zamonaviy tema yaratish
 // Yangi zamonaviy tema (Dark Blue + Gold)
@@ -46,8 +47,9 @@ const theme = createTheme({
             dark: '#001F40',
         },
         background: {
-            default: '#474d64',
-            paper: 'rgba(71, 77, 100, 0.8)', // logo color with alpha
+            // darker navy to match requested design
+            default: '#071A3B',
+            paper: 'rgba(7, 26, 59, 0.85)', // deeper navy with alpha
         },
         text: {
             primary: '#FFFFFF',
@@ -68,7 +70,7 @@ const theme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: {
-                    background: 'rgba(71, 77, 100, 0.8)',
+                    background: 'rgba(7, 26, 59, 0.85)',
                     backdropFilter: 'blur(20px)',
                     border: '1px solid #FFD700',
                     borderRadius: '20px',
@@ -140,20 +142,21 @@ const SchoolRegistrationForm: React.FC = () => {
     const [error, setError] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
+    // place Pop tumani earlier as requested and keep Boshqa last
     const tumanlar = [
-        'Namangan shahri',
-        'Chortoq tumani',
-        'Chust tumani',
-        'Kasansoy tumani',
-        'Mingbuloq tumani',
-        'Namangan tumani',
-        'Norin tumani',
         'Pop tumani',
-        'To\'raqo\'rg\'on tumani',
-        'Uchqo\'rg\'on tumani',
-        'Uychi tumani',
-        'Yangiqo\'rg\'on tumani',
-        "Boshqa"
+        //'Namangan shahri',
+       // 'Chortoq tumani',
+        //'Chust tumani',
+        //'Kasansoy tumani',
+        //'Mingbuloq tumani',
+        //'Namangan tumani',
+        //'Norin tumani',
+        //'To\'raqo\'rg\'on tumani',
+        //'Uchqo\'rg\'on tumani',
+        //'Uychi tumani',
+        //'Yangiqo\'rg\'on tumani',
+        'Boshqa'
     ];
 
     // const sinflar = [
@@ -170,11 +173,17 @@ const SchoolRegistrationForm: React.FC = () => {
     //     '11-sinf'
     // ];
 
-    const age = [
-        "4-yosh",
-        "5-yosh",
-        "6-yosh",
-    ]
+    const sinflar = [
+        '1-sinf',
+        '2-sinf',
+        '3-sinf',
+        '4-sinf',
+        '5-sinf',
+        '6-sinf',
+        '7-sinf',
+        '8-sinf',
+        'Maktabga tayyorlov guruhi'
+    ];
 
     const handleInputChange = (field: keyof FormData) => (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
@@ -187,7 +196,7 @@ const SchoolRegistrationForm: React.FC = () => {
 
     const validateForm = (): boolean => {
         if (!formData.name.trim()) {
-            setError('Ismingizni kiriting');
+            setError('Ism-familyangizni kiriting');
             return false;
         }
         if (!formData.district) {
@@ -195,7 +204,7 @@ const SchoolRegistrationForm: React.FC = () => {
             return false;
         }
         if (!formData.class) {
-            setError('Sinfni tanlang');
+            setError('Sinfingizni tanlang');
             return false;
         }
         if (!formData.phoneNumber.trim()) {
@@ -210,22 +219,22 @@ const SchoolRegistrationForm: React.FC = () => {
     };
 
     const sendToTelegram = async () => {
-        const message = `🎓 YANGI RO'YXATDAN O'TISH
+    const message = `🎓 YANGI RO'YXATDAN O'TISH
 
 👤 Ism: ${formData.name}
 🏘️ Tuman: ${formData.district}
-📚 Yoshi: ${formData.class}
+📚 Sinf: ${formData.class}
 📞 Telefon: ${formData.phoneNumber}
 
 📅 Vaqt: ${new Date().toLocaleString('uz-UZ')}`;
 
-        const response = await fetch('https://api.telegram.org/bot8355977324:AAH3xs6LLm5VyA-hqEVsuQLCh0zv7WhTZS8/sendMessage', {
+        const response = await fetch('https://api.telegram.org/bot8429768210:AAEQdhg6N34fvsbM5HhZm98G0QQRVzSZywk/sendMessage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                chat_id: '-1003499978575', // Bu yerga o'z chat ID'ingizni qo'ying
+                chat_id: '-1002629133065', // Bu yerga o'z chat ID'ingizni qo'ying
                 text: message,
                 parse_mode: 'HTML'
             }),
@@ -278,6 +287,8 @@ const SchoolRegistrationForm: React.FC = () => {
                     padding: 2,
                 }}
             >
+                {/* Snow overlay */}
+                <Snowfall count={40} />
                 <Container maxWidth="sm">
                     <Slide direction="up" in={true} mountOnEnter unmountOnExit>
                         <Paper
@@ -314,16 +325,8 @@ const SchoolRegistrationForm: React.FC = () => {
                                     variant="h4"
                                     gutterBottom
                                     color="text.secondary"
-                                    // sx={{
-                                    //     background: 'linear-gradient(45deg, #fff, #fff)',
-                                    //     backgroundClip: 'text',
-                                    //     WebkitBackgroundClip: 'text',
-                                    //     WebkitTextFillColor: 'transparent',
-                                    // }}
                                 >
-                                    American KinderGarten
-                                    Hususiy bog'chasi
-
+                                    POP XALQARO MAKTABI
                                 </Typography>
 
                                 <Typography variant="h6" color="text.secondary" gutterBottom>
@@ -331,8 +334,7 @@ const SchoolRegistrationForm: React.FC = () => {
                                 </Typography>
 
                                 <Typography variant="body2" color="text.secondary">
-                                    Ma'lumotlaringizni yozib qoldiring, siz bilan tezda bog'lanamiz,
-                                    bog'chamiz haqida yana ham batafsil ma'lumot beramiz
+                                    Ma'lumotlaringizni yozib qoldiring, siz bilan tezda bog'lanamiz!
                                 </Typography>
                             </Box>
 
@@ -352,7 +354,7 @@ const SchoolRegistrationForm: React.FC = () => {
                                 <Box component="form" onSubmit={handleSubmit}>
                                     <TextField
                                         fullWidth
-                                        label="Ismingiz"
+                                        label="Ism-familyangiz"
                                         value={formData.name}
                                         onChange={handleInputChange('name')}
                                         margin="normal"
@@ -394,17 +396,17 @@ const SchoolRegistrationForm: React.FC = () => {
                                     </FormControl>
 
                                     <FormControl fullWidth margin="normal" required sx={{ mb: 2 }}>
-                                        <InputLabel>Yosh tanlang</InputLabel>
+                                        <InputLabel>Sinfingizni tanlang</InputLabel>
                                         <Select
                                             value={formData.class}
                                             onChange={handleInputChange('class')}
-                                            label="Sinfni tanlang"
+                                            label="Sinfingizni tanlang"
                                             sx={{
                                                 borderRadius: '12px',
                                                 background: 'rgba(255, 255, 255, 0.05)',
                                             }}
                                         >
-                                            {age.map((item) => (
+                                            {sinflar.map((item) => (
                                                 <MenuItem key={item} value={item}>
                                                     {item}
                                                 </MenuItem>
