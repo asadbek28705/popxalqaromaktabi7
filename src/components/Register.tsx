@@ -334,7 +334,7 @@ const SchoolRegistrationForm: React.FC = () => {
                                 </Typography>
 
                                 <Typography variant="body2" color="text.secondary">
-                                    Ma'lumotlaringizni yozib qoldiring, siz bilan tezda bog'lanamiz!
+                                    Ma'lumotlaringizni yozib qoldiring, siz bilan tez orada bog'lanamiz!
                                 </Typography>
                             </Box>
 
